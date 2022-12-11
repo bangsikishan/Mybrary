@@ -1,14 +1,18 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
+const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
-const indexRouter = require("./routes/index");
 
+const indexRouter = require("./routes/index");
+const authorRouter = require("./routes/authors");
+
+app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.set("view engine", "ejs");
 app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(express.static("public"));
+
 
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.URL)
@@ -17,3 +21,4 @@ mongoose.connect(process.env.URL)
 
 
 app.use("/", indexRouter);
+app.use("/authors", authorRouter);
