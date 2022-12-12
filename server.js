@@ -6,6 +6,8 @@ const expressLayouts = require("express-ejs-layouts");
 
 const indexRouter = require("./routes/index");
 const authorRouter = require("./routes/authors");
+const bookRouter = require("./routes/books");
+
 
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 app.set("view engine", "ejs");
@@ -22,3 +24,4 @@ mongoose.connect(process.env.URL)
 
 app.use("/", indexRouter);
 app.use("/authors", authorRouter);
+app.use("/books", bookRouter);
